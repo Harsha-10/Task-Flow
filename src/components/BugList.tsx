@@ -95,7 +95,7 @@ const BugList: React.FC = () => {
   return (
     <div className="space-y-4 sm:space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
+        <div className="w-full sm:w-auto">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Bug Management</h1>
           <p className="text-sm sm:text-base text-gray-600 mt-1 sm:mt-2">Track and manage your bugs efficiently</p>
         </div>
@@ -103,7 +103,7 @@ const BugList: React.FC = () => {
         {user?.role === 'developer' && (
           <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="w-full sm:w-auto">
+              <Button className="w-full sm:w-auto mt-2 sm:mt-0">
                 <Plus className="h-4 w-4 mr-2" />
                 Create Bug
               </Button>
