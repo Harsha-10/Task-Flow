@@ -248,174 +248,242 @@ const Dashboard: React.FC = () => {
         </Card>
       </div>
 
-      {/* Centered Charts Grid */}
-      <div className="w-full flex flex-col lg:flex-row justify-center items-stretch gap-4 sm:gap-6 lg:gap-8">
-        <div className="flex-1 min-w-0 flex justify-center">
-          <Card className="lg:col-span-2 border-0 shadow-xl sm:shadow-2xl bg-white/90 backdrop-blur-sm hover:shadow-2xl sm:hover:shadow-3xl transition-all duration-300 rounded-xl sm:rounded-2xl overflow-hidden w-full max-w-2xl">
+      {/* Charts Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 px-2 sm:px-4">
+        {/* Development Velocity Chart */}
+        <div className="w-full">
+          <Card className="border-0 shadow-xl sm:shadow-2xl bg-white/90 backdrop-blur-sm hover:shadow-2xl sm:hover:shadow-3xl transition-all duration-300 rounded-xl sm:rounded-2xl overflow-hidden">
             <CardHeader className="bg-gradient-to-r from-indigo-50 to-purple-50 border-b border-indigo-100 p-4 sm:p-6">
               <CardTitle className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
                 <div className="p-2 sm:p-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg sm:rounded-xl shadow-lg self-start">
                   <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                 </div>
                 <div>
-                  <span className="text-lg sm:text-xl font-bold text-slate-800">Development Velocity</span>
-                  <p className="text-xs sm:text-sm text-slate-600 font-normal">Weekly progression and resolution trends</p>
+                  <span className="text-base sm:text-lg font-bold text-slate-800">Development Velocity</span>
+                  <p className="text-xs sm:text-sm text-slate-600 font-normal mt-0.5">Weekly progression and resolution trends</p>
                 </div>
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
-              <ResponsiveContainer width="100%" height={320}>
-                <AreaChart data={trendData}>
-                  <defs>
-                    <linearGradient id="activeGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#6366f1" stopOpacity={0.4}/>
-                      <stop offset="95%" stopColor="#6366f1" stopOpacity={0.1}/>
-                    </linearGradient>
-                    <linearGradient id="resolvedGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.4}/>
-                      <stop offset="95%" stopColor="#10b981" stopOpacity={0.1}/>
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" opacity={0.5} />
-                  <XAxis dataKey="date" stroke="#64748b" fontSize={12} tickLine={false} />
-                  <YAxis stroke="#64748b" fontSize={12} tickLine={false} />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: 'white', 
-                      border: 'none', 
-                      borderRadius: '16px', 
-                      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-                      padding: '12px'
-                    }} 
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="activeBugs"
-                    stroke="#6366f1"
-                    strokeWidth={3}
-                    fill="url(#activeGradient)"
-                    name="Active Issues"
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="resolved"
-                    stroke="#10b981"
-                    strokeWidth={3}
-                    fill="url(#resolvedGradient)"
-                    name="Resolved"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
+            <CardContent className="p-2 sm:p-4">
+              <div className="h-[280px] sm:h-[320px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={trendData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="activeGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#6366f1" stopOpacity={0.4}/>
+                        <stop offset="95%" stopColor="#6366f1" stopOpacity={0.1}/>
+                      </linearGradient>
+                      <linearGradient id="resolvedGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#10b981" stopOpacity={0.4}/>
+                        <stop offset="95%" stopColor="#10b981" stopOpacity={0.1}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" opacity={0.5} />
+                    <XAxis 
+                      dataKey="date" 
+                      stroke="#64748b" 
+                      fontSize={11} 
+                      tickLine={false}
+                      tickMargin={8}
+                      minTickGap={20}
+                    />
+                    <YAxis 
+                      stroke="#64748b" 
+                      fontSize={11} 
+                      tickLine={false}
+                      tickMargin={8}
+                      width={30}
+                    />
+                    <Tooltip 
+                      contentStyle={{ 
+                        backgroundColor: 'white', 
+                        border: 'none', 
+                        borderRadius: '8px', 
+                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                        padding: '8px',
+                        fontSize: '12px'
+                      }} 
+                    />
+                    <Area
+                      type="monotone"
+                      dataKey="activeBugs"
+                      stroke="#6366f1"
+                      strokeWidth={2}
+                      fill="url(#activeGradient)"
+                      name="Active Issues"
+                    />
+                    <Area
+                      type="monotone"
+                      dataKey="resolved"
+                      stroke="#10b981"
+                      strokeWidth={2}
+                      fill="url(#resolvedGradient)"
+                      name="Resolved"
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
             </CardContent>
           </Card>
         </div>
-        <div className="flex-1 min-w-0 flex justify-center">
-          <Card className="border-0 shadow-xl sm:shadow-2xl bg-white/90 backdrop-blur-sm hover:shadow-2xl sm:hover:shadow-3xl transition-all duration-300 rounded-xl sm:rounded-2xl overflow-hidden w-full max-w-2xl">
+
+        {/* Status Overview Pie Chart */}
+        <div className="w-full">
+          <Card className="border-0 shadow-xl sm:shadow-2xl bg-white/90 backdrop-blur-sm hover:shadow-2xl sm:hover:shadow-3xl transition-all duration-300 rounded-xl sm:rounded-2xl overflow-hidden">
             <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50 border-b border-purple-100 p-4 sm:p-6">
               <CardTitle className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
                 <div className="p-2 sm:p-3 bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg sm:rounded-xl shadow-lg self-start">
                   <Target className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                 </div>
                 <div>
-                  <span className="text-lg sm:text-xl font-bold text-slate-800">Status Overview</span>
-                  <p className="text-xs sm:text-sm text-slate-600 font-normal">Current distribution</p>
+                  <span className="text-base sm:text-lg font-bold text-slate-800">Status Overview</span>
+                  <p className="text-xs sm:text-sm text-slate-600 font-normal mt-0.5">Current distribution</p>
                 </div>
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-10">
-              <ResponsiveContainer width="100%" height={360}>
-                <PieChart>
-                  <Pie
-                    data={pieData}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={60}
-                    outerRadius={110}
-                    dataKey="value"
-                    labelLine={false}
-                    label={({ cx, cy, midAngle, innerRadius, outerRadius, percent, name, index }) => {
-                      if (percent === 0) return null;
+            <CardContent className="p-2 sm:p-4">
+              <div className="h-[280px] sm:h-[320px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
+                    <Pie
+                      data={pieData}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={50}
+                      outerRadius={85}
+                      paddingAngle={2}
+                      dataKey="value"
+                      labelLine={false}
+                      label={({ cx, cy, midAngle, innerRadius, outerRadius, percent, name, index }) => {
+                        if (percent === 0) return null;
 
-                      const RADIAN = Math.PI / 180;
-                      const radius = percent > 0.08
-                        ? innerRadius + (outerRadius - innerRadius) / 2 
-                        : outerRadius + 10;
-                      const x = cx + radius * Math.cos(-midAngle * RADIAN);
-                      const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                        const RADIAN = Math.PI / 180;
+                        let radius;
+                        if (name === "Pending Review") {
+                          radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+                        } else {
+                          radius = percent > 0.1
+                            ? innerRadius + (outerRadius - innerRadius) * 0.4
+                            : innerRadius + (outerRadius - innerRadius) * 0.6;
+                        }
+                        
+                        const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                        const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
-                      return (
-                        <text
-                          x={x}
-                          y={y}
-                          fill={'slate-800' }
-                          textAnchor="middle"
-                          dominantBaseline="central"
-                          style={{
-                            fontSize: '12px',
-                            fontWeight: 600,
-                            fontFamily: 'Inter, sans-serif',
-                            textShadow: percent > 0.08 ? '0 1px 2px rgba(0, 0, 0, 0.3)' : 'none',
-                            pointerEvents: 'none',
-                          }}
-                        >
-                          {`${name} ${Math.round(percent * 100)}%`}
-                        </text>
-                      );
-                    }}
-                  >
-                    {pieData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
+                        const yOffset = name === "Pending Review" ? 1 : (y > cy ? 0 : -1);
 
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: 'white',
-                      border: 'none',
-                      borderRadius: '12px',
-                      boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
-                    }}
-                  />
-                </PieChart>
-            </ResponsiveContainer>
+                        const textAnchor = x > cx ? 'start' : 'end';
+                        
+                        return (
+                          <text
+                            x={x}
+                            y={y + yOffset}
+                            fill="#1e293b"
+                            textAnchor={textAnchor}
+                            dominantBaseline="central"
+                            style={{
+                              fontSize: '10px',
+                              fontWeight: 500,
+                              fontFamily: 'Inter, sans-serif',
+                              pointerEvents: 'none',
+                              transform: 'translateY(0)',
+                            }}
+                          >
+                            {`${name} (${Math.round(percent * 100)}%)`}
+                          </text>
+                        );
+                      }}
+                    >
+                      {pieData.map((entry, index) => (
+                        <Cell 
+                          key={`cell-${index}`} 
+                          fill={entry.color}
+                          stroke="white"
+                          strokeWidth={2}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip 
+                      contentStyle={{
+                        backgroundColor: 'white',
+                        border: 'none',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                        padding: '8px',
+                        fontSize: '12px'
+                      }}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
             </CardContent>
           </Card>
         </div>
       </div>
 
-      {/* Weekly Performance Chart Centered */}
-      <div className="w-full flex justify-center">
-        <Card className="border-0 shadow-2xl bg-white/90 backdrop-blur-sm hover:shadow-3xl transition-all duration-300 rounded-2xl overflow-hidden w-full max-w-3xl">
-          <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50 border-b border-green-100">
-            <CardTitle className="flex items-center space-x-3">
-              <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl shadow-lg">
-                <BarChart className="h-6 w-6 text-white" />
+      {/* Weekly Performance Chart */}
+      <div className="w-full px-2 sm:px-4">
+        <Card className="border-0 shadow-xl sm:shadow-2xl bg-white/90 backdrop-blur-sm hover:shadow-2xl sm:hover:shadow-3xl transition-all duration-300 rounded-xl sm:rounded-2xl overflow-hidden">
+          <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50 border-b border-green-100 p-4 sm:p-6">
+            <CardTitle className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
+              <div className="p-2 sm:p-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg sm:rounded-xl shadow-lg self-start">
+                <BarChart className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
               <div>
-                <span className="text-xl font-bold text-slate-800">Weekly Performance</span>
-                <p className="text-sm text-slate-600 font-normal">Task completion vs assignment rates</p>
+                <span className="text-base sm:text-lg font-bold text-slate-800">Weekly Performance</span>
+                <p className="text-xs sm:text-sm text-slate-600 font-normal mt-0.5">Task completion vs assignment rates</p>
               </div>
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-6">
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={performanceData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" opacity={0.5} />
-                <XAxis dataKey="day" stroke="#64748b" fontSize={12} tickLine={false} />
-                <YAxis stroke="#64748b" fontSize={12} tickLine={false} />
-                <Tooltip 
-                  contentStyle={{
-                    backgroundColor: 'white',
-                    border: 'none',
-                    borderRadius: '12px',
-                    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
-                    padding: '12px'
-                  }}
-                />
-                <Bar dataKey="assigned" fill="#6366f1" name="Assigned" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="completed" fill="#10b981" name="Completed" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
+          <CardContent className="p-2 sm:p-4">
+            <div className="h-[280px] sm:h-[320px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart 
+                  data={performanceData} 
+                  margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" opacity={0.5} />
+                  <XAxis 
+                    dataKey="day" 
+                    stroke="#64748b" 
+                    fontSize={11} 
+                    tickLine={false}
+                    tickMargin={8}
+                  />
+                  <YAxis 
+                    stroke="#64748b" 
+                    fontSize={11} 
+                    tickLine={false}
+                    tickMargin={8}
+                    width={30}
+                  />
+                  <Tooltip 
+                    contentStyle={{
+                      backgroundColor: 'white',
+                      border: 'none',
+                      borderRadius: '8px',
+                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                      padding: '8px',
+                      fontSize: '12px'
+                    }}
+                  />
+                  <Bar 
+                    dataKey="assigned" 
+                    fill="#6366f1" 
+                    name="Assigned" 
+                    radius={[4, 4, 0, 0]}
+                    maxBarSize={40}
+                  />
+                  <Bar 
+                    dataKey="completed" 
+                    fill="#10b981" 
+                    name="Completed" 
+                    radius={[4, 4, 0, 0]}
+                    maxBarSize={40}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </CardContent>
         </Card>
       </div>

@@ -90,47 +90,47 @@ const BugForm: React.FC<BugFormProps> = ({ bug, onClose }) => {
   };
 
   return (
-    <div className="p-4 sm:p-6 bg-gradient-to-br from-white to-slate-50 rounded-xl sm:rounded-2xl border-0 shadow-xl sm:shadow-2xl animate-scale-in">
-      <div className="space-y-1.5 sm:space-y-2 mb-6 sm:mb-8">
-        <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+    <div className="p-3 sm:p-4 bg-gradient-to-br from-white to-slate-50 rounded-lg sm:rounded-xl border-0">
+      <div className="space-y-1 sm:space-y-2 mb-4 sm:mb-6">
+        <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
           {bug ? 'Update Issue' : 'Create New Issue'}
         </h2>
-        <p className="text-sm sm:text-base text-slate-600">
+        <p className="text-xs sm:text-sm text-slate-600">
           {bug ? 'Modify the issue details below' : 'Fill in the details to create a new issue'}
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+      <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           <div className="sm:col-span-2">
-            <Label htmlFor="title" className="text-sm font-semibold text-slate-700">Title *</Label>
+            <Label htmlFor="title" className="text-xs sm:text-sm font-semibold text-slate-700">Title *</Label>
             <Input
               id="title"
               value={formData.title}
               onChange={(e) => handleChange('title', e.target.value)}
               placeholder="Enter issue title"
-              className="mt-1.5 sm:mt-2 h-9 sm:h-10 border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg sm:rounded-xl"
+              className="mt-1 h-8 sm:h-9 border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 rounded-md sm:rounded-lg text-sm"
               required
             />
           </div>
 
           <div className="sm:col-span-2">
-            <Label htmlFor="description" className="text-sm font-semibold text-slate-700">Description *</Label>
+            <Label htmlFor="description" className="text-xs sm:text-sm font-semibold text-slate-700">Description *</Label>
             <Textarea
               id="description"
               value={formData.description}
               onChange={(e) => handleChange('description', e.target.value)}
               placeholder="Describe the issue in detail"
-              rows={4}
-              className="mt-1.5 sm:mt-2 border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg sm:rounded-xl"
+              rows={3}
+              className="mt-1 border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 rounded-md sm:rounded-lg text-sm"
               required
             />
           </div>
 
           <div>
-            <Label htmlFor="priority" className="text-sm font-semibold text-slate-700">Priority</Label>
+            <Label htmlFor="priority" className="text-xs sm:text-sm font-semibold text-slate-700">Priority</Label>
             <Select value={formData.priority} onValueChange={(value) => handleChange('priority', value)}>
-              <SelectTrigger className="mt-1.5 sm:mt-2 h-9 sm:h-10 border-slate-200 focus:border-indigo-500 rounded-lg sm:rounded-xl">
+              <SelectTrigger className="mt-1 h-8 sm:h-9 border-slate-200 focus:border-indigo-500 rounded-md sm:rounded-lg text-sm">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -143,9 +143,9 @@ const BugForm: React.FC<BugFormProps> = ({ bug, onClose }) => {
           </div>
 
           <div>
-            <Label htmlFor="status" className="text-sm font-semibold text-slate-700">Status</Label>
+            <Label htmlFor="status" className="text-xs sm:text-sm font-semibold text-slate-700">Status</Label>
             <Select value={formData.status} onValueChange={(value) => handleChange('status', value)}>
-              <SelectTrigger className="mt-1.5 sm:mt-2 h-9 sm:h-10 border-slate-200 focus:border-indigo-500 rounded-lg sm:rounded-xl">
+              <SelectTrigger className="mt-1 h-8 sm:h-9 border-slate-200 focus:border-indigo-500 rounded-md sm:rounded-lg text-sm">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -158,7 +158,7 @@ const BugForm: React.FC<BugFormProps> = ({ bug, onClose }) => {
           </div>
 
           <div>
-            <Label htmlFor="assignee" className="text-sm font-semibold text-slate-700">Assignee</Label>
+            <Label htmlFor="assignee" className="text-xs sm:text-sm font-semibold text-slate-700">Assignee</Label>
             <Select value={formData.assigneeId} onValueChange={(value) => {
               const assignee = assignees.find(a => a.id === value);
               handleChange('assigneeId', value);
@@ -166,7 +166,7 @@ const BugForm: React.FC<BugFormProps> = ({ bug, onClose }) => {
                 handleChange('assigneeName', assignee.name);
               }
             }}>
-              <SelectTrigger className="mt-1.5 sm:mt-2 h-9 sm:h-10 border-slate-200 focus:border-indigo-500 rounded-lg sm:rounded-xl">
+              <SelectTrigger className="mt-1 h-8 sm:h-9 border-slate-200 focus:border-indigo-500 rounded-md sm:rounded-lg text-sm">
                 <SelectValue placeholder="Select assignee" />
               </SelectTrigger>
               <SelectContent>
@@ -180,29 +180,29 @@ const BugForm: React.FC<BugFormProps> = ({ bug, onClose }) => {
           </div>
 
           <div>
-            <Label htmlFor="project" className="text-sm font-semibold text-slate-700">Project</Label>
+            <Label htmlFor="project" className="text-xs sm:text-sm font-semibold text-slate-700">Project</Label>
             <Input
               id="project"
               value={formData.project}
               onChange={(e) => handleChange('project', e.target.value)}
               placeholder="Enter project name"
-              className="mt-1.5 sm:mt-2 h-9 sm:h-10 border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg sm:rounded-xl"
+              className="mt-1 h-8 sm:h-9 border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 rounded-md sm:rounded-lg text-sm"
             />
           </div>
 
           <div>
-            <Label htmlFor="dueDate" className="text-sm font-semibold text-slate-700">Due Date</Label>
+            <Label htmlFor="dueDate" className="text-xs sm:text-sm font-semibold text-slate-700">Due Date</Label>
             <Input
               id="dueDate"
               type="date"
               value={formData.dueDate}
               onChange={(e) => handleChange('dueDate', e.target.value)}
-              className="mt-1.5 sm:mt-2 h-9 sm:h-10 border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg sm:rounded-xl"
+              className="mt-1 h-8 sm:h-9 border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 rounded-md sm:rounded-lg text-sm"
             />
           </div>
 
           <div>
-            <Label htmlFor="estimatedHours" className="text-sm font-semibold text-slate-700">Estimated Hours</Label>
+            <Label htmlFor="estimatedHours" className="text-xs sm:text-sm font-semibold text-slate-700">Estimated Hours</Label>
             <Input
               id="estimatedHours"
               type="number"
@@ -211,34 +211,34 @@ const BugForm: React.FC<BugFormProps> = ({ bug, onClose }) => {
               value={formData.estimatedHours}
               onChange={(e) => handleChange('estimatedHours', e.target.value)}
               placeholder="Enter estimated hours"
-              className="mt-1.5 sm:mt-2 h-9 sm:h-10 border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg sm:rounded-xl"
+              className="mt-1 h-8 sm:h-9 border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 rounded-md sm:rounded-lg text-sm"
             />
           </div>
 
           <div className="sm:col-span-2">
-            <Label htmlFor="tags" className="text-sm font-semibold text-slate-700">Tags</Label>
+            <Label htmlFor="tags" className="text-xs sm:text-sm font-semibold text-slate-700">Tags</Label>
             <Input
               id="tags"
               value={formData.tags}
               onChange={(e) => handleChange('tags', e.target.value)}
               placeholder="Enter tags separated by commas (e.g., frontend, urgent, mobile)"
-              className="mt-1.5 sm:mt-2 h-9 sm:h-10 border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg sm:rounded-xl"
+              className="mt-1 h-8 sm:h-9 border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 rounded-md sm:rounded-lg text-sm"
             />
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-end gap-3 sm:gap-4 pt-4 sm:pt-6 border-t border-slate-200">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-4 pb-2 mt-4 border-t border-slate-100">
           <Button 
             type="button" 
             variant="outline" 
             onClick={onClose}
-            className="w-full sm:w-auto h-9 sm:h-10 px-4 sm:px-6 border-slate-300 text-slate-700 hover:bg-slate-50 rounded-lg sm:rounded-xl transition-all duration-200"
+            className="w-full sm:w-auto h-8 sm:h-9 px-3 sm:px-4 border-slate-300 text-slate-700 hover:bg-slate-50 rounded-md sm:rounded-lg text-sm transition-all duration-200"
           >
             Cancel
           </Button>
           <Button 
             type="submit"
-            className="w-full sm:w-auto h-9 sm:h-10 px-4 sm:px-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-lg sm:rounded-xl transition-all duration-200 transform hover:scale-105"
+            className="w-full sm:w-auto h-8 sm:h-9 px-3 sm:px-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-md sm:rounded-lg text-sm transition-all duration-200"
           >
             {bug ? 'Update Issue' : 'Create Issue'}
           </Button>

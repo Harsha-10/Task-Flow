@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Plus, Search, Filter, Edit, Trash2, CheckCircle, XCircle, Clock, MoreHorizontal } from 'lucide-react';
+import { Plus, Search, Filter, Edit, Trash2, CheckCircle, XCircle, Clock, MoreHorizontal, X } from 'lucide-react';
 import BugForm from './BugForm';
 import { useToast } from '@/hooks/use-toast';
 
@@ -108,14 +108,29 @@ const BugList: React.FC = () => {
                 Create Bug
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl w-[95vw] sm:w-full">
-              <DialogHeader>
-                <DialogTitle>Create New Bug</DialogTitle>
-                <DialogDescription>
-                  Fill in the details to create a new bug report.
-                </DialogDescription>
+            <DialogContent className="max-w-[95vw] sm:max-w-[90vw] md:max-w-[800px] w-full h-[90vh] sm:h-[85vh] overflow-y-auto p-0">
+              <DialogHeader className="sticky top-0 bg-white z-20 px-6 py-4 border-b">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <DialogTitle className="text-xl sm:text-2xl">Create New Bug</DialogTitle>
+                    <DialogDescription className="text-sm sm:text-base mt-1">
+                      Fill in the details to create a new bug report.
+                    </DialogDescription>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 rounded-full hover:bg-slate-100"
+                    onClick={() => setIsCreateDialogOpen(false)}
+                  >
+                    <X className="h-4 w-4" />
+                    <span className="sr-only">Close</span>
+                  </Button>
+                </div>
               </DialogHeader>
-              <BugForm onClose={() => setIsCreateDialogOpen(false)} />
+              <div className="px-6 py-4 relative z-10">
+                <BugForm onClose={() => setIsCreateDialogOpen(false)} />
+              </div>
             </DialogContent>
           </Dialog>
         )}
@@ -308,22 +323,37 @@ const BugList: React.FC = () => {
       </div>
 
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="max-w-2xl w-[95vw] sm:w-full">
-          <DialogHeader>
-            <DialogTitle>Edit Bug</DialogTitle>
-            <DialogDescription>
-              Update the bug details below.
-            </DialogDescription>
+        <DialogContent className="max-w-[95vw] sm:max-w-[90vw] md:max-w-[800px] w-full h-[90vh] sm:h-[85vh] overflow-y-auto p-0">
+          <DialogHeader className="sticky top-0 bg-white z-20 px-6 py-4 border-b">
+            <div className="flex items-center justify-between">
+              <div>
+                <DialogTitle className="text-xl sm:text-2xl">Edit Bug</DialogTitle>
+                <DialogDescription className="text-sm sm:text-base mt-1">
+                  Update the bug details below.
+                </DialogDescription>
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 rounded-full hover:bg-slate-100"
+                onClick={() => setIsEditDialogOpen(false)}
+              >
+                <X className="h-4 w-4" />
+                <span className="sr-only">Close</span>
+              </Button>
+            </div>
           </DialogHeader>
-          {selectedBug && (
-            <BugForm 
-              bug={selectedBug} 
-              onClose={() => {
-                setIsEditDialogOpen(false);
-                setSelectedBug(null);
-              }} 
-            />
-          )}
+          <div className="px-6 py-4 relative z-10">
+            {selectedBug && (
+              <BugForm 
+                bug={selectedBug} 
+                onClose={() => {
+                  setIsEditDialogOpen(false);
+                  setSelectedBug(null);
+                }} 
+              />
+            )}
+          </div>
         </DialogContent>
       </Dialog>
     </div>
