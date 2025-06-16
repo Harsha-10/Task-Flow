@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Bug, AlertCircle } from 'lucide-react';
+import { Bug, AlertCircle, Loader2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
@@ -36,27 +35,27 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-6 sm:py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-6 sm:space-y-8">
         <div className="text-center">
           <div className="flex justify-center">
-            <Bug className="h-12 w-12 text-primary" />
+            <Bug className="h-10 w-10 sm:h-12 sm:w-12 text-primary" />
           </div>
-          <h1 className="mt-6 text-3xl font-bold text-gray-900">TaskFlow</h1>
-          <p className="mt-2 text-sm text-gray-600">Sign in to your account</p>
+          <h1 className="mt-4 sm:mt-6 text-2xl sm:text-3xl font-bold text-gray-900">TaskFlow</h1>
+          <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-600">Sign in to your account</p>
         </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Welcome back</CardTitle>
-            <CardDescription>
+        <Card className="w-full">
+          <CardHeader className="space-y-1 sm:space-y-2">
+            <CardTitle className="text-xl sm:text-2xl">Welcome back</CardTitle>
+            <CardDescription className="text-sm sm:text-base">
               Enter your credentials to access your dashboard
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="username">Username</Label>
+            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+              <div className="space-y-1.5 sm:space-y-2">
+                <Label htmlFor="username" className="text-sm sm:text-base">Username</Label>
                 <Input
                   id="username"
                   type="text"
@@ -64,11 +63,12 @@ const Login: React.FC = () => {
                   onChange={(e) => setUsername(e.target.value)}
                   required
                   placeholder="Enter your username"
+                  className="h-9 sm:h-10"
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+              <div className="space-y-1.5 sm:space-y-2">
+                <Label htmlFor="password" className="text-sm sm:text-base">Password</Label>
                 <Input
                   id="password"
                   type="password"
@@ -76,18 +76,30 @@ const Login: React.FC = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   placeholder="Enter your password"
+                  className="h-9 sm:h-10"
                 />
               </div>
 
               {error && (
-                <div className="flex items-center space-x-2 text-red-600 text-sm">
-                  <AlertCircle className="h-4 w-4" />
+                <div className="flex items-center space-x-2 text-red-600 text-xs sm:text-sm">
+                  <AlertCircle className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   <span>{error}</span>
                 </div>
               )}
 
-              <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? 'Signing in...' : 'Sign in'}
+              <Button 
+                type="submit" 
+                className="w-full h-9 sm:h-10 text-sm sm:text-base"
+                disabled={loading}
+              >
+                {loading ? (
+                  <div className="flex items-center justify-center">
+                    <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 animate-spin mr-2" />
+                    Signing in...
+                  </div>
+                ) : (
+                  'Sign in'
+                )}
               </Button>
             </form>
 

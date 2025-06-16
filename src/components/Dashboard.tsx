@@ -1,4 +1,3 @@
-
 import React, { useMemo } from 'react';
 import { useBugs } from '@/hooks/useBugs';
 import { useAuth } from '@/contexts/AuthContext';
@@ -75,21 +74,21 @@ const Dashboard: React.FC = () => {
   }, []);
 
   return (
-    <div className="space-y-8 animate-fade-in">
-      <div className="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-purple-50 rounded-3xl p-8 border border-indigo-100 shadow-2xl">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-indigo-200/20 to-purple-200/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-pink-200/20 to-orange-200/20 rounded-full blur-3xl"></div>
+    <div className="space-y-4 sm:space-y-8 animate-fade-in">
+      <div className="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-purple-50 rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-indigo-100 shadow-xl sm:shadow-2xl">
+        <div className="absolute top-0 right-0 w-32 sm:w-64 h-32 sm:h-64 bg-gradient-to-br from-indigo-200/20 to-purple-200/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-24 sm:w-48 h-24 sm:h-48 bg-gradient-to-tr from-pink-200/20 to-orange-200/20 rounded-full blur-3xl"></div>
         
         <div className="relative space-y-4">
-          <div className="flex items-center space-x-3">
-            <div className="p-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl shadow-lg animate-pulse-glow">
-              <Sparkles className="h-8 w-8 text-white" />
+          <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-3">
+            <div className="p-2 sm:p-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl sm:rounded-2xl shadow-lg animate-pulse-glow self-start">
+              <Sparkles className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
             </div>
             <div>
-              <h1 className="text-5xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                 Welcome, {user.name}!
               </h1>
-              <p className="text-xl text-slate-600 font-medium mt-2">
+              <p className="text-base sm:text-lg lg:text-xl text-slate-600 font-medium mt-1 sm:mt-2">
                 {user?.role === 'manager' 
                   ? 'Strategic oversight and team performance analytics' 
                   : 'Your personalized productivity command center'
@@ -250,17 +249,17 @@ const Dashboard: React.FC = () => {
       </div>
 
       
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
         
-        <Card className="lg:col-span-2 border-0 shadow-2xl bg-white/90 backdrop-blur-sm hover:shadow-3xl transition-all duration-300 rounded-2xl overflow-hidden">
-          <CardHeader className="bg-gradient-to-r from-indigo-50 to-purple-50 border-b border-indigo-100">
-            <CardTitle className="flex items-center space-x-3">
-              <div className="p-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-lg">
-                <TrendingUp className="h-6 w-6 text-white" />
+        <Card className="lg:col-span-2 border-0 shadow-xl sm:shadow-2xl bg-white/90 backdrop-blur-sm hover:shadow-2xl sm:hover:shadow-3xl transition-all duration-300 rounded-xl sm:rounded-2xl overflow-hidden">
+          <CardHeader className="bg-gradient-to-r from-indigo-50 to-purple-50 border-b border-indigo-100 p-4 sm:p-6">
+            <CardTitle className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
+              <div className="p-2 sm:p-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg sm:rounded-xl shadow-lg self-start">
+                <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
               <div>
-                <span className="text-xl font-bold text-slate-800">Development Velocity</span>
-                <p className="text-sm text-slate-600 font-normal">Weekly progression and resolution trends</p>
+                <span className="text-lg sm:text-xl font-bold text-slate-800">Development Velocity</span>
+                <p className="text-xs sm:text-sm text-slate-600 font-normal">Weekly progression and resolution trends</p>
               </div>
             </CardTitle>
           </CardHeader>
@@ -311,15 +310,15 @@ const Dashboard: React.FC = () => {
         </Card>
 
         
-        <Card className="border-0 shadow-2xl bg-white/90 backdrop-blur-sm hover:shadow-3xl transition-all duration-300 rounded-2xl overflow-hidden">
-          <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50 border-b border-purple-100">
-            <CardTitle className="flex items-center space-x-3">
-              <div className="p-3 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl shadow-lg">
-                <Target className="h-6 w-6 text-white" />
+        <Card className="border-0 shadow-xl sm:shadow-2xl bg-white/90 backdrop-blur-sm hover:shadow-2xl sm:hover:shadow-3xl transition-all duration-300 rounded-xl sm:rounded-2xl overflow-hidden">
+          <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50 border-b border-purple-100 p-4 sm:p-6">
+            <CardTitle className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
+              <div className="p-2 sm:p-3 bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg sm:rounded-xl shadow-lg self-start">
+                <Target className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
               <div>
-                <span className="text-xl font-bold text-slate-800">Status Overview</span>
-                <p className="text-sm text-slate-600 font-normal">Current distribution</p>
+                <span className="text-lg sm:text-xl font-bold text-slate-800">Status Overview</span>
+                <p className="text-xs sm:text-sm text-slate-600 font-normal">Current distribution</p>
               </div>
             </CardTitle>
           </CardHeader>

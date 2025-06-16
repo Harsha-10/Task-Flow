@@ -93,22 +93,22 @@ const BugList: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Bug Management</h1>
-          <p className="text-gray-600 mt-2">Track and manage your bugs efficiently</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Bug Management</h1>
+          <p className="text-sm sm:text-base text-gray-600 mt-1 sm:mt-2">Track and manage your bugs efficiently</p>
         </div>
         
         {user?.role === 'developer' && (
           <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger asChild>
-              <Button>
+              <Button className="w-full sm:w-auto">
                 <Plus className="h-4 w-4 mr-2" />
                 Create Bug
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl">
+            <DialogContent className="max-w-2xl w-[95vw] sm:w-full">
               <DialogHeader>
                 <DialogTitle>Create New Bug</DialogTitle>
                 <DialogDescription>
@@ -121,193 +121,194 @@ const BugList: React.FC = () => {
         )}
       </div>
 
-      
       <Card>
-        <CardContent className="pt-6">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                <Input
-                  placeholder="Search bugs..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
-                />
-              </div>
+        <CardContent className="pt-4 sm:pt-6">
+          <div className="flex flex-col gap-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Input
+                placeholder="Search bugs..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
             </div>
             
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline">
-                  <Filter className="h-4 w-4 mr-2" />
-                  Status: {statusFilter === 'all' ? 'All' : statusFilter.replace('-', ' ')}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => setStatusFilter('all')}>All</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setStatusFilter('open')}>Open</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setStatusFilter('in-progress')}>In Progress</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setStatusFilter('pending-approval')}>Pending Approval</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setStatusFilter('closed')}>Closed</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" className="w-full sm:w-auto justify-between">
+                    <div className="flex items-center">
+                      <Filter className="h-4 w-4 mr-2" />
+                      Status: {statusFilter === 'all' ? 'All' : statusFilter.replace('-', ' ')}
+                    </div>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-[200px]">
+                  <DropdownMenuItem onClick={() => setStatusFilter('all')}>All</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setStatusFilter('open')}>Open</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setStatusFilter('in-progress')}>In Progress</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setStatusFilter('pending-approval')}>Pending Approval</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setStatusFilter('closed')}>Closed</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline">
-                  <Filter className="h-4 w-4 mr-2" />
-                  Priority: {priorityFilter === 'all' ? 'All' : priorityFilter}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => setPriorityFilter('all')}>All</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setPriorityFilter('critical')}>Critical</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setPriorityFilter('high')}>High</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setPriorityFilter('medium')}>Medium</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setPriorityFilter('low')}>Low</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" className="w-full sm:w-auto justify-between">
+                    <div className="flex items-center">
+                      <Filter className="h-4 w-4 mr-2" />
+                      Priority: {priorityFilter === 'all' ? 'All' : priorityFilter}
+                    </div>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-[200px]">
+                  <DropdownMenuItem onClick={() => setPriorityFilter('all')}>All</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setPriorityFilter('critical')}>Critical</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setPriorityFilter('high')}>High</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setPriorityFilter('medium')}>Medium</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setPriorityFilter('low')}>Low</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           </div>
         </CardContent>
       </Card>
 
-      
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {filteredBugs.map((bug) => (
-          <Card key={bug.id} className="hover:shadow-md transition-shadow">
-            <CardHeader>
-              <div className="flex justify-between items-start">
-                <div className="flex-1">
-                  <CardTitle className="text-lg">{bug.title}</CardTitle>
-                  <CardDescription className="mt-2">{bug.description}</CardDescription>
-                </div>
-                
-                {canModifyBug(bug) && (
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="sm">
-                        <MoreHorizontal className="h-4 w-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem 
-                        onClick={() => {
-                          setSelectedBug(bug);
-                          setIsEditDialogOpen(true);
-                        }}
-                      >
-                        <Edit className="h-4 w-4 mr-2" />
-                        Edit
-                      </DropdownMenuItem>
-                      
-                      {bug.status === 'open' && (
+      <div className="space-y-4">
+        {filteredBugs.length > 0 ? (
+          filteredBugs.map((bug) => (
+            <Card key={bug.id} className="hover:shadow-md transition-shadow">
+              <CardHeader className="p-4 sm:p-6">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
+                  <div className="flex-1 space-y-2">
+                    <CardTitle className="text-base sm:text-lg">{bug.title}</CardTitle>
+                    <CardDescription className="text-sm sm:text-base line-clamp-2 sm:line-clamp-none">{bug.description}</CardDescription>
+                  </div>
+                  
+                  {canModifyBug(bug) && (
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="sm" className="self-start">
+                          <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-[200px]">
                         <DropdownMenuItem 
-                          onClick={() => handleStatusChange(bug, 'in-progress')}
+                          onClick={() => {
+                            setSelectedBug(bug);
+                            setIsEditDialogOpen(true);
+                          }}
                         >
-                          <Clock className="h-4 w-4 mr-2" />
-                          Start Progress
+                          <Edit className="h-4 w-4 mr-2" />
+                          Edit
                         </DropdownMenuItem>
-                      )}
-                      
-                      {bug.status === 'in-progress' && user?.role === 'developer' && (
-                        <DropdownMenuItem 
-                          onClick={() => handleStatusChange(bug, 'pending-approval')}
-                        >
-                          <CheckCircle className="h-4 w-4 mr-2" />
-                          Mark for Review
-                        </DropdownMenuItem>
-                      )}
-                      
-                      {canApproveBug(bug) && (
-                        <>
+                        
+                        {bug.status === 'open' && (
                           <DropdownMenuItem 
-                            onClick={() => handleStatusChange(bug, 'closed')}
+                            onClick={() => handleStatusChange(bug, 'in-progress')}
+                          >
+                            <Clock className="h-4 w-4 mr-2" />
+                            Start Progress
+                          </DropdownMenuItem>
+                        )}
+                        
+                        {bug.status === 'in-progress' && user?.role === 'developer' && (
+                          <DropdownMenuItem 
+                            onClick={() => handleStatusChange(bug, 'pending-approval')}
                           >
                             <CheckCircle className="h-4 w-4 mr-2" />
-                            Approve & Close
+                            Mark for Review
                           </DropdownMenuItem>
-                          <DropdownMenuItem 
-                            onClick={() => handleStatusChange(bug, 'open')}
-                          >
-                            <XCircle className="h-4 w-4 mr-2" />
-                            Reopen
-                          </DropdownMenuItem>
-                        </>
-                      )}
-                      
-                      <DropdownMenuItem 
-                        onClick={() => handleDelete(bug)}
-                        className="text-red-600"
-                      >
-                        <Trash2 className="h-4 w-4 mr-2" />
-                        Delete
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                )}
-              </div>
-            </CardHeader>
-            
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex flex-wrap gap-2">
-                  <Badge className={getPriorityColor(bug.priority)}>
-                    {bug.priority}
-                  </Badge>
-                  <Badge className={getStatusColor(bug.status)}>
-                    {bug.status.replace('-', ' ')}
-                  </Badge>
-                  {bug.tags.map(tag => (
-                    <Badge key={tag} variant="outline">
-                      {tag}
+                        )}
+                        
+                        {canApproveBug(bug) && (
+                          <>
+                            <DropdownMenuItem 
+                              onClick={() => handleStatusChange(bug, 'closed')}
+                            >
+                              <CheckCircle className="h-4 w-4 mr-2" />
+                              Approve & Close
+                            </DropdownMenuItem>
+                            <DropdownMenuItem 
+                              onClick={() => handleStatusChange(bug, 'open')}
+                            >
+                              <XCircle className="h-4 w-4 mr-2" />
+                              Reopen
+                            </DropdownMenuItem>
+                          </>
+                        )}
+                        
+                        <DropdownMenuItem 
+                          onClick={() => handleDelete(bug)}
+                          className="text-red-600"
+                        >
+                          <Trash2 className="h-4 w-4 mr-2" />
+                          Delete
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  )}
+                </div>
+              </CardHeader>
+              
+              <CardContent className="p-4 sm:p-6 pt-0 sm:pt-0">
+                <div className="space-y-4">
+                  <div className="flex flex-wrap gap-2">
+                    <Badge className={getPriorityColor(bug.priority)}>
+                      {bug.priority}
                     </Badge>
-                  ))}
+                    <Badge className={getStatusColor(bug.status)}>
+                      {bug.status.replace('-', ' ')}
+                    </Badge>
+                    {bug.tags.map(tag => (
+                      <Badge key={tag} variant="outline">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-sm text-gray-600">
+                    <div>
+                      <span className="font-medium">Assignee:</span> {bug.assigneeName}
+                    </div>
+                    <div>
+                      <span className="font-medium">Project:</span> {bug.project}
+                    </div>
+                    <div>
+                      <span className="font-medium">Created:</span> {new Date(bug.createdAt).toLocaleDateString()}
+                    </div>
+                    <div>
+                      <span className="font-medium">Time Spent:</span> {bug.actualHours}h
+                    </div>
+                  </div>
+                  
+                  {bug.dueDate && (
+                    <div className="text-sm">
+                      <span className="font-medium text-gray-600">Due Date:</span>
+                      <span className={`ml-2 ${new Date(bug.dueDate) < new Date() ? 'text-red-600 font-medium' : 'text-gray-600'}`}>
+                        {new Date(bug.dueDate).toLocaleDateString()}
+                      </span>
+                    </div>
+                  )}
                 </div>
-                
-                <div className="grid grid-cols-2 gap-4 text-sm text-gray-600">
-                  <div>
-                    <span className="font-medium">Assignee:</span> {bug.assigneeName}
-                  </div>
-                  <div>
-                    <span className="font-medium">Project:</span> {bug.project}
-                  </div>
-                  <div>
-                    <span className="font-medium">Created:</span> {new Date(bug.createdAt).toLocaleDateString()}
-                  </div>
-                  <div>
-                    <span className="font-medium">Time Spent:</span> {bug.actualHours}h
-                  </div>
-                </div>
-                
-                {bug.dueDate && (
-                  <div className="text-sm">
-                    <span className="font-medium text-gray-600">Due Date:</span>
-                    <span className={`ml-2 ${new Date(bug.dueDate) < new Date() ? 'text-red-600 font-medium' : 'text-gray-600'}`}>
-                      {new Date(bug.dueDate).toLocaleDateString()}
-                    </span>
-                  </div>
-                )}
+              </CardContent>
+            </Card>
+          ))
+        ) : (
+          <Card>
+            <CardContent className="pt-6 text-center py-8 sm:py-12">
+              <div className="text-gray-500">
+                <p className="text-base sm:text-lg font-medium">No bugs found</p>
+                <p className="mt-1 sm:mt-2 text-sm sm:text-base">Try adjusting your search or filter criteria.</p>
               </div>
             </CardContent>
           </Card>
-        ))}
+        )}
       </div>
 
-      {filteredBugs.length === 0 && (
-        <Card>
-          <CardContent className="pt-6 text-center py-12">
-            <div className="text-gray-500">
-              <p className="text-lg font-medium">No bugs found</p>
-              <p className="mt-2">Try adjusting your search or filter criteria.</p>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl w-[95vw] sm:w-full">
           <DialogHeader>
             <DialogTitle>Edit Bug</DialogTitle>
             <DialogDescription>
